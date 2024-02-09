@@ -7,9 +7,9 @@ const AnecdoteList = () => {
         state.anecdotes.filter(a => a.content.toLowerCase().includes(state.filter.toLowerCase())))
     const dispatch = useDispatch()
 
-    const vote = (id, text) => {
-      dispatch(votingAction(id))
-      dispatch(newNotification(`You voted for '${text}'`))
+    const vote = (anec) => {
+      dispatch(votingAction(anec))
+      dispatch(newNotification(`You voted for '${anec.content}'`))
       setTimeout(()=>{dispatch(newNotification(''))}, 5000)
     }
 
@@ -24,7 +24,7 @@ const AnecdoteList = () => {
                         </div>
                         <div>
                             has {anecdote.votes}
-                            <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
+                            <button onClick={() => vote(anecdote)}>vote</button>
                         </div>
                     </div>
                 )}
