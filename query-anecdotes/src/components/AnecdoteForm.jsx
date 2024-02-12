@@ -8,12 +8,17 @@ const AnecdoteForm = () => {
 
   const queryClient = useQueryClient()
 
+  const creationError = () => {
+    noteDispatcher({type: 'ERROR'})
+  }
+
   const newAnecdoteMutation = useMutation({
     mutationFn: createAnecdote,
     onSuccess: (newAnecdote) => {
       const anecdotes = queryClient.getQueryData(['anecdotes'])
       queryClient.setQueryData(['anecdotes'], anecdotes.concat(newAnecdote))
-    }
+    },
+    onError: creationError
   })
 
   const onCreate = (event) => {
